@@ -1,7 +1,7 @@
 import os, random, csv
 from pathlib import Path
 from collections import defaultdict
-from typing import List, Tuple
+from typing import Any, List, Tuple
 
 import torch
 from torch import nn
@@ -26,7 +26,7 @@ torch.manual_seed(SEED)
 class CSVDataset(Dataset):
     def __init__(self, rows: List[Tuple[str, str]], classes: List[str], train: bool):
         self.rows = rows
-        self.cls2idx = {c: i for i, c in enumerate(classes)}
+        self.cls2idx = {c: i for i, c in enumerate[str](classes)}
         if train:
             self.tf = transforms.Compose(
                 [
@@ -90,7 +90,7 @@ def main():
     rows = read_csv(CSV_PATH)
 
     # 클래스 목록(사전 순 고정)
-    classes = sorted(list({lb for _, lb in rows if lb != "unknown"}))
+    classes = sorted(list[Any]({lb for _, lb in rows if lb != "unknown"}))
     print("Classes:", classes)
 
     train_rows, val_rows, test_rows = split_rows(rows)
@@ -100,13 +100,13 @@ def main():
     val_ds = CSVDataset(val_rows, classes, train=False)
     test_ds = CSVDataset(test_rows, classes, train=False)
 
-    train_loader = DataLoader(
+    train_loader = DataLoader[Any](
         train_ds, batch_size=BATCH_SIZE, shuffle=True, num_workers=4, pin_memory=True
     )
-    val_loader = DataLoader(
+    val_loader = DataLoader[Any](
         val_ds, batch_size=BATCH_SIZE, shuffle=False, num_workers=4, pin_memory=True
     )
-    test_loader = DataLoader(
+    test_loader = DataLoader[Any](
         test_ds, batch_size=BATCH_SIZE, shuffle=False, num_workers=4, pin_memory=True
     )
 
